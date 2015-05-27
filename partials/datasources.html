@@ -1,0 +1,21 @@
+
+<table summary="Datasources List">
+  <thead>
+    <tr>
+      <th width="100">Datasource Name</th>
+      <th width="50">Length</th>
+      <th >Attributes</th>
+      <th width="1000">Query</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat = "source in sources">
+      <td>{{source.name}}</td>
+      <td>{{source.length}}</td>
+      <td>{{source.attributes}}</td>
+        <td><input type="text" ng-model="source.query"></input><a ng-click="sourceQuery(source)" class="button" >submit</a></td>
+    </tr>
+    
+  </tbody>
+</table>
+ 

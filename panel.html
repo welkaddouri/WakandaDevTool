@@ -1,0 +1,18 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.1/css/foundation.css">
+	<script src="angular/angular.js"></script>
+    <script src="angular/angular-route.js"></script>
+    
+</head>
+<body ng-app="wakandaPanel">
+<ul class="breadcrumbs" ng-init="current = 'home'">
+  <li ng-class="{current : current == 'home'}" ><a href="#home" ng-click = "current = 'home'">Home</a></li>
+  <li ng-class="{current : current == 'ds'}" ><a href="#datasources" ng-click = "current = 'ds'">Datasources</a></li>
+</ul>
+<ng-view>
+</ng-view>
+ 
+</body>
+    <script src="panel.js"></script>
+</html>

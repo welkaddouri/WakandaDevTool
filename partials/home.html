@@ -1,0 +1,11 @@
+<div ng-if="isWakandaApp">
+    This application is running on :</br>
+<ul class="vcard">
+  <li class="fn">Product : Wakanda Server</li>
+  <li class="street-address">Version : {{VERSION}} </li>
+  <li class="street-address">Build : {{BUILD}}</li>
+  <li class="email"><a href="http://www.wakanda.org/">Web Site : http://www.wakanda.org/</a></li>
+</ul> </br>
+   <div class = "label" ng-if="user"> You are logged with {{user.userName}}</div>
+   <div class = "label" ng-if="!user"> You are not logged </div>
+</div>    
