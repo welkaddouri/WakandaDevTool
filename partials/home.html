@@ -9,5 +9,6 @@
 </ul> </br>
    <div class = "label" ng-if="user"> You are logged with {{user.userName}}</div>
    <div class = "label" ng-if="!user"> You are not logged </div></br></br></br>
-   <a ng-click="runPageWithoutWDD()" class="button" >Run Page Without WD2</a>
+   <a ng-click="runPageWithoutWDD()" ng-if="isrunPageWithWDD" class="button" >Run Page Without WD2</a>
+   <a ng-click="runPageWithWDD()" ng-if="!isrunPageWithWDD" class="button" >Run Page With WD2</a>
 </div>    

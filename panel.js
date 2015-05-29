@@ -53,6 +53,26 @@ wakandaPanel.service('inspectedApp', ['$q', function ($q) {
     });
     };
     
+    this.runPageWithWDD = function (name,query) {
+    return $q(function(resolve, reject) {
+        
+      var codeToEval = 'if(window.location.href.match(/debug\=1/))window.location.href = window.location.href.replace("?debug=1","")';
+        
+      chrome.devtools.inspectedWindow.eval(
+          codeToEval, resolve);
+    });
+    };
+    
+    this.isrunPageWithWDD = function (name,query) {
+    return $q(function(resolve, reject) {
+        
+      var codeToEval = '!window.location.href.match(/debug\=1/)';
+        
+      chrome.devtools.inspectedWindow.eval(
+          codeToEval, resolve);
+    });
+    };
+    
     
 
 
@@ -76,9 +96,25 @@ wakandaPanel.controller("homeCtrl",function($scope,inspectedApp){
         
       });
     
+    inspectedApp.isrunPageWithWDD().then(function (result) {
+        
+        $scope.isrunPageWithWDD = result[0];
+            
+      });
+    
     $scope.runPageWithoutWDD = function () {
         
         inspectedApp.runPageWithoutWDD();
+        
+        $scope.isrunPageWithWDD = false;
+    
+    }
+    
+    $scope.runPageWithWDD = function () {
+        
+        inspectedApp.runPageWithWDD();
+        
+        $scope.isrunPageWithWDD = true;
     
     }
     
