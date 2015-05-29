@@ -98,7 +98,7 @@ wakandaPanel.controller("homeCtrl",function($scope,inspectedApp){
     
     inspectedApp.isrunPageWithWDD().then(function (result) {
         
-        $scope.isrunPageWithWDD = result[0];
+        $scope.isrunPageWithWDD = result;
             
       });
     
