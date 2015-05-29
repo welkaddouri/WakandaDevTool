@@ -1,30 +1,3 @@
-/*var port = chrome.extension.connect({
-        name: "Sample Communication" //Given a Name
-    });
-chrome.devtools.inspectedWindow.eval(
-          "WAF.VERSION",
-           function(result, isException) {
-             if (isException)
-               document.getElementById("runningInfo").innerHTML = "this application is not a wakanda app ";
-             else{
-               document.getElementById("runningInfo").innerHTML = "this application is running on Wakanda  " +result;
-               var message = {};
-               message.action = "code";
-               message.content = "console.log($$('dataGrid1'))";
-               message.tabId = chrome.devtools.inspectedWindow.tabId;
-               chrome.extension.sendMessage(message);
-               port.onMessage.addListener(function (message) {
-               debugger;
-               console.log(message);
-      
-                });
-               
-             }
-           }
-      );*/
-
-
-
 var wakandaPanel = angular.module("wakandaPanel",["ngRoute"]);
 
 wakandaPanel.config(['$routeProvider',
@@ -44,31 +17,11 @@ wakandaPanel.config(['$routeProvider',
   }]);
 
 wakandaPanel.service('inspectedApp', ['$q', function ($q) {
-
-    this.getAppStatus = function () {
-    return $q(function(resolve, reject) {
-      chrome.devtools.inspectedWindow.eval(
-          "WAF.VERSION", resolve);
-    });
-    };
-    this.getWakandaVersion = function () {
-    return $q(function(resolve, reject) {
-      chrome.devtools.inspectedWindow.eval(
-          "WAF.VERSION", resolve);
-    });
-    };
     
-    this.getWakandaBuild = function () {
+    this.getInfosHome = function () {
     return $q(function(resolve, reject) {
       chrome.devtools.inspectedWindow.eval(
-          "WAF.BUILD", resolve);
-    });
-    };
-    
-    this.getCurrentUser = function () {
-    return $q(function(resolve, reject) {
-      chrome.devtools.inspectedWindow.eval(
-          "WAF.directory.currentUser()", resolve);
+          "[ WAF.VERSION,WAF.BUILD, WAF.pageTheme,{currentUser : WAF.directory.currentUser() }]", resolve);
     });
     };
     
@@ -89,6 +42,8 @@ wakandaPanel.service('inspectedApp', ['$q', function ($q) {
     });
     };
     
+    
+    
 
 
 
@@ -96,21 +51,21 @@ wakandaPanel.service('inspectedApp', ['$q', function ($q) {
 
 wakandaPanel.controller("homeCtrl",function($scope,inspectedApp){
     
-    inspectedApp.getAppStatus().then(function (status) {
-        $scope.isWakandaApp = status;
+    inspectedApp.getInfosHome().then(function (result) {
+        
+        $scope.isWakandaApp = result[0];
+        
+        $scope.VERSION = result[0];
+        
+        $scope.BUILD = result[1];
+    
+        $scope.pageTheme = result[2];
+        
+        $scope.user = result[3].currentUser;
+        
+        
       });
-    inspectedApp.getWakandaVersion().then(function (version) {
-        $scope.VERSION = version;
-      });
-    inspectedApp.getWakandaBuild().then(function (build) {
-        $scope.BUILD = build;
-      });
-    inspectedApp.getCurrentUser().then(function (user) {
-        $scope.user = user;
-      });
-    inspectedApp.getSources().then(function (sources) {
-        $scope.sources = sources;
-      });
+    
 });
 
 wakandaPanel.controller("datasourcesCtrl",function($scope,inspectedApp){
@@ -118,13 +73,7 @@ wakandaPanel.controller("datasourcesCtrl",function($scope,inspectedApp){
     inspectedApp.getSources().then(function (sources) {
         
         $scope.sources = sources;
-        
-        for(var i=0 ; i < $scope.sources.length ; i++) {
-        $scope.sources[i].query = "";
-      
-        };
-        
-        
+         
         
       });
             
@@ -134,7 +83,7 @@ wakandaPanel.controller("datasourcesCtrl",function($scope,inspectedApp){
            inspectedApp.sourceQuery(s.name,s.query).then(function (length) {
                
                      s.length = length;
-           });
+           });           
     
     };
     
