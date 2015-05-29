@@ -43,6 +43,16 @@ wakandaPanel.service('inspectedApp', ['$q', function ($q) {
     };
     
     
+    this.runPageWithoutWDD = function (name,query) {
+    return $q(function(resolve, reject) {
+        
+      var codeToEval = 'if(!window.location.href.match(/debug\=1/))window.location.href = window.location.href + "?debug=1"';
+        
+      chrome.devtools.inspectedWindow.eval(
+          codeToEval, resolve);
+    });
+    };
+    
     
 
 
@@ -65,6 +75,12 @@ wakandaPanel.controller("homeCtrl",function($scope,inspectedApp){
         
         
       });
+    
+    $scope.runPageWithoutWDD = function () {
+        
+        inspectedApp.runPageWithoutWDD();
+    
+    }
     
 });
 

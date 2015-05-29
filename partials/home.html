@@ -1,4 +1,4 @@
-<div ng-if="isWakandaApp">
+<div class="panel" ng-if="isWakandaApp">
     This application is running on :</br>
 <ul class="vcard">
   <li class="fn">Product : Wakanda Server</li>
@@ -8,5 +8,6 @@
   <li class="email"><a href="http://www.wakanda.org/">Web Site : http://www.wakanda.org/</a></li>
 </ul> </br>
    <div class = "label" ng-if="user"> You are logged with {{user.userName}}</div>
-   <div class = "label" ng-if="!user"> You are not logged </div>
+   <div class = "label" ng-if="!user"> You are not logged </div></br></br></br>
+   <a ng-click="runPageWithoutWDD()" class="button" >Run Page Without WD2</a>
 </div>    
