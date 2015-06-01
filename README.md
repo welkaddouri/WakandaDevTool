@@ -18,7 +18,7 @@ Chrome extension for manipulating Wakanda front end
 - Home Tab : show you general info about your page and let you enable/disable WD2.
 ![ScreenShot](http://content.screencast.com/users/walidos/folders/Jing/media/2ca9bfb5-7edd-47bb-bff8-7bf7365bd92d/2015-06-01_1043.png)
 - datasources Tab : show you some informaion about  your page's datasources , and let you make queries. 
-![ScreenShot](http://content.screencast.com/users/walidos/folders/Jing/media/8917644c-d485-482b-8258-a71977b149db/2015-05-28_1121.png)
+![ScreenShot](http://content.screencast.com/users/walidos/folders/Jing/media/cf6466fc-bde0-41a9-a23b-684468f54d81/2015-06-01_1137.png)
  * You can also navigate to elements panel and you will fin a sidebar named wakanda-widget.so as you change your selected widget element , you can see all methods exposed on selected widget . 
  ![ScreenShot](http://content.screencast.com/users/walidos/folders/Jing/media/9d0d0918-66df-428e-a9e1-5a82770c5b7b/2015-05-28_1128.png)
  
