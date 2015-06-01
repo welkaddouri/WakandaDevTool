@@ -43,20 +43,20 @@ wakandaPanel.service('inspectedApp', ['$q', function ($q) {
     };
     
     
-    this.runPageWithoutDebug = function (name,query) {
+    this.runPageWithDebug = function (name,query) {
     return $q(function(resolve, reject) {
         
-      var codeToEval = 'if(!window.location.href.match(/debug\=1/))window.location.href = window.location.href + "?debug=1"';
+      var codeToEval = 'window.location.href = window.location.href + "?debug=1"';
         
       chrome.devtools.inspectedWindow.eval(
           codeToEval, resolve);
     });
     };
     
-    this.runPageWithDebug = function (name,query) {
+    this.runPageWithoutDebug = function (name,query) {
     return $q(function(resolve, reject) {
         
-      var codeToEval = 'if(window.location.href.match(/debug\=1/))window.location.href = window.location.href.replace("?debug=1","")';
+      var codeToEval = 'window.location.href = window.location.href.replace("?debug=1","")';
         
       chrome.devtools.inspectedWindow.eval(
           codeToEval, resolve);
@@ -66,7 +66,7 @@ wakandaPanel.service('inspectedApp', ['$q', function ($q) {
     this.isrunPageWithDebug = function (name,query) {
     return $q(function(resolve, reject) {
         
-      var codeToEval = '!window.location.href.match(/debug\=1/)';
+      var codeToEval = 'window.location.href.match(/debug\=1/) != null';
         
       chrome.devtools.inspectedWindow.eval(
           codeToEval, resolve);
