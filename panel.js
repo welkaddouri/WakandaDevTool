@@ -43,7 +43,7 @@ wakandaPanel.service('inspectedApp', ['$q', function ($q) {
     };
     
     
-    this.runPageWithoutWDD = function (name,query) {
+    this.runPageWithoutDebug = function (name,query) {
     return $q(function(resolve, reject) {
         
       var codeToEval = 'if(!window.location.href.match(/debug\=1/))window.location.href = window.location.href + "?debug=1"';
@@ -53,7 +53,7 @@ wakandaPanel.service('inspectedApp', ['$q', function ($q) {
     });
     };
     
-    this.runPageWithWDD = function (name,query) {
+    this.runPageWithDebug = function (name,query) {
     return $q(function(resolve, reject) {
         
       var codeToEval = 'if(window.location.href.match(/debug\=1/))window.location.href = window.location.href.replace("?debug=1","")';
@@ -63,7 +63,7 @@ wakandaPanel.service('inspectedApp', ['$q', function ($q) {
     });
     };
     
-    this.isrunPageWithWDD = function (name,query) {
+    this.isrunPageWithDebug = function (name,query) {
     return $q(function(resolve, reject) {
         
       var codeToEval = '!window.location.href.match(/debug\=1/)';
@@ -96,27 +96,27 @@ wakandaPanel.controller("homeCtrl",function($scope,inspectedApp){
         
       });
     
-    inspectedApp.isrunPageWithWDD().then(function (result) {
+    inspectedApp.isrunPageWithDebug().then(function (result) {
         
-        $scope.isrunPageWithWDD = result;
+        $scope.isrunPageWithDebug = result;
             
       });
     
-    $scope.runPageWithoutWDD = function () {
+    $scope.runPageWithoutDebug = function () {
         
-        inspectedApp.runPageWithoutWDD();
+        inspectedApp.runPageWithoutDebug();
         
-        $scope.isrunPageWithWDD = false;
+        $scope.isrunPageWithDebug = false;
     
-    }
+    };
     
-    $scope.runPageWithWDD = function () {
+    $scope.runPageWithDebug = function () {
         
-        inspectedApp.runPageWithWDD();
+        inspectedApp.runPageWithDebug();
         
-        $scope.isrunPageWithWDD = true;
+        $scope.isrunPageWithDebug = true;
     
-    }
+    };
     
 });
 
@@ -141,6 +141,7 @@ wakandaPanel.controller("datasourcesCtrl",function($scope,inspectedApp){
     
     
 });
+
 
 
 
