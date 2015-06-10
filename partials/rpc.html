@@ -1,0 +1,17 @@
+<table summary="rpc List" ng-if="rpcs.length > 0">
+  <thead>
+    <tr>
+      <th width="100">Rpc Name</th>
+      <th width="200">Rpc Path</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat = "rpc in rpcs">
+      <td>{{rpc.name}}</td>
+      <td>{{rpc.path}}</td>
+      
+    </tr>
+    
+  </tbody>
+</table>
