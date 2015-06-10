@@ -11,6 +11,10 @@ wakandaPanel.config(['$routeProvider',
         templateUrl: 'partials/datasources.html',
         controller: 'datasourcesCtrl'
       }).
+      when('/rpc', {
+        templateUrl: 'partials/rpc.html',
+        controller: 'rpcCtrl'
+      }).
       otherwise({
         redirectTo: '/home'
       });
@@ -73,6 +77,24 @@ wakandaPanel.service('inspectedApp', ['$q', function ($q) {
     });
     };
     
+    this.getRpcModulesList = function () {
+    return $q(function(resolve, reject) {
+        
+      var codeToEval = 'waf.config.loadRPC';
+        
+      chrome.devtools.inspectedWindow.eval(
+          codeToEval, resolve);
+    });
+    };
+    
+    this.getMethodsList = function (name) {
+    return $q(function(resolve, reject) {
+        
+        
+      chrome.devtools.inspectedWindow.eval(
+          name, resolve);
+    });
+    };
     
 
 
@@ -140,6 +162,43 @@ wakandaPanel.controller("datasourcesCtrl",function($scope,inspectedApp){
     };
     
     
+});
+
+wakandaPanel.controller("rpcCtrl",function($scope,inspectedApp){
+  
+    inspectedApp.getRpcModulesList().then(function (rpcs) {
+        
+        $scope.rpcs = [];
+        
+        exp = "[";
+        
+        for(r in rpcs) {
+            
+            
+            $scope.rpcs.push({name : rpcs[r].match(/(\w+)$/)[0] , path : rpcs[r]});
+            
+            exp += "{ '" + rpcs[r].match(/(\w+)$/)[0] +"' : " + rpcs[r].match(/(\w+)$/)[0] +" },"
+            
+        }
+        
+        exp +="]";
+        
+        chrome.devtools.panels.elements.createSidebarPane(
+                 "wakanda-rpc",
+                 function(sidebar) {
+                        
+                               sidebar.setExpression(exp);
+                        
+
+                 
+                 
+                 }
+                 );
+         
+        
+      });
+      
+        
 });
 
 
