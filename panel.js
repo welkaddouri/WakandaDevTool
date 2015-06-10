@@ -164,36 +164,39 @@ wakandaPanel.controller("datasourcesCtrl",function($scope,inspectedApp){
     
 });
 
-wakandaPanel.controller("rpcCtrl",function($scope,inspectedApp){
+wakandaPanel.controller("rpcCtrl",function($rootScope,$scope,inspectedApp){
   
     inspectedApp.getRpcModulesList().then(function (rpcs) {
         
         $scope.rpcs = [];
         
-        exp = "[";
+        var exp = "[";
+        
+        var name ;
         
         for(r in rpcs) {
             
+            name = rpcs[r].match(/(\w+)$/)[0];
+            $scope.rpcs.push({name : name , path : rpcs[r]});
             
-            $scope.rpcs.push({name : rpcs[r].match(/(\w+)$/)[0] , path : rpcs[r]});
-            
-            exp += "{ '" + rpcs[r].match(/(\w+)$/)[0] +"' : " + rpcs[r].match(/(\w+)$/)[0] +" },"
+            exp += "{ '" + name +"' : " + name +" },"
             
         }
         
         exp +="]";
         
+        if(!$rootScope.paneCreated){
+            
         chrome.devtools.panels.elements.createSidebarPane(
                  "wakanda-rpc",
                  function(sidebar) {
                         
                                sidebar.setExpression(exp);
-                        
-
-                 
+                               $rootScope.paneCreated = true;
                  
                  }
                  );
+        }
          
         
       });
