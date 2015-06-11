@@ -170,20 +170,22 @@ wakandaPanel.controller("rpcCtrl",function($rootScope,$scope,inspectedApp){
         
         $scope.rpcs = [];
         
-        var exp = "[";
+        var exp = "var x = {};";
         
         var name ;
+        
+        debugger;
         
         for(r in rpcs) {
             
             name = rpcs[r].match(/(\w+)$/)[0];
             $scope.rpcs.push({name : name , path : rpcs[r]});
             
-            exp += "{ '" + name +"' : " + name +" },"
+            exp += "x."+name +" = " + name +";"
             
         }
         
-        exp +="]";
+        exp +=" x ;";
         
         if(!$rootScope.paneCreated){
             
